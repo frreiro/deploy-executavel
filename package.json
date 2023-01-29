@@ -1,0 +1,51 @@
+{
+  "name": "pkg",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": "assets/js/decompress.js",
+  "scripts": {
+    "create:uninstall": "pkg assets/js/service-uninstall.js -t node14-win-x64 --output assets/service-uninstall.exe",
+    "create:install": "pkg assets/js/service-install.js -t node14-win-x64 --output assets/service-install.exe",
+    "build:restore": "rm -rf monitory_sftw.exe assets/build.zip build/ assets/service-uninstall.exe  assets/service-install.exe",
+    "build:webpack": "webpack",
+    "build:prepare": "cp -r assets/* build/ &&  mkdir build\\logs && rm -rf build/js/",
+    "build:webpack-prepare": "npm run create:install && npm run create:uninstall && npm run build:webpack &&  npm run build:prepare",
+    "build:src:exe": "pkg build/bundle.js -t node14-win-x64 --output build/build.exe --debug",
+    "deploy:zip": "node assets/js/compress.js",
+    "deploy:exe": "pkg . --output monitory_sftw.exe",
+    "deploy:start": "npm run build:restore && npm run build:webpack-prepare && npm run build:src:exe && npm run deploy:zip && npm run deploy:exe"
+  },
+  "pkg": {
+    "scripts": [
+      "assets/js/decompress.js"
+    ],
+    "assets": [
+      "assets/build.zip"
+    ],
+    "targets": [
+      "node14-win-x64"
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "adm-zip": "^0.5.10",
+    "babel-loader": "^9.1.2",
+    "config": "^3.3.9",
+    "express": "^4.18.2",
+    "nexe": "^4.0.0-rc.2",
+    "node-windows": "^1.0.0-beta.8"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.20.7",
+    "@babel/core": "^7.20.12",
+    "@babel/preset-env": "^7.20.2",
+    "pkg": "^5.8.0",
+    "ttypescript": "^1.5.15",
+    "typescript": "^4.9.4",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  }
+}
