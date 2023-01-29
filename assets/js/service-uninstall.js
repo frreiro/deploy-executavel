@@ -1,13 +1,10 @@
 const { exec } = require('child_process');
-
-//TODO: externalizar nome dos diretórios
-const _appDir = '\\Monitory_software'
-const _fullPath = process.env.ProgramData + _appDir
+const globals = require('../../config/globals')
 
 function uninstallService(){
     return new Promise((resolve, reject) => {
         try{
-            exec(`cd ${_fullPath} && cmd.exe /c service-uninstall.bat`, { }, (e, stdout) => {
+            exec(`cd ${globals.__deployAbsolutePath()} && cmd.exe /c service-uninstall.bat ${globals.__serviceName}`, { }, (e, stdout) => {
                 if(e) console.log('Deu erro')
                 console.log(stdout)
             })

@@ -5,8 +5,8 @@
   "main": "index.js",
   "bin": "assets/js/decompress.js",
   "scripts": {
-    "create:uninstall": "pkg assets/js/service-uninstall.js -t node14-win-x64 --output assets/service-uninstall.exe",
-    "create:install": "pkg assets/js/service-install.js -t node14-win-x64 --output assets/service-install.exe",
+    "create:install": "pkg assets/js/service-install.js --config assets/services-pkg-config.json -o assets/service-install.exe",
+    "create:uninstall": "pkg assets/js/service-uninstall.js --config assets/services-pkg-config.json -o assets/service-uninstall.exe",
     "build:restore": "rm -rf monitory_sftw.exe assets/build.zip build/ assets/service-uninstall.exe  assets/service-install.exe",
     "build:webpack": "webpack",
     "build:prepare": "cp -r assets/* build/ &&  mkdir build\\logs && rm -rf build/js/",
@@ -18,7 +18,8 @@
   },
   "pkg": {
     "scripts": [
-      "assets/js/decompress.js"
+      "assets/js/decompress.js",
+      "./config/*.js"
     ],
     "assets": [
       "assets/build.zip"

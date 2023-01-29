@@ -1,7 +1,21 @@
 @ECHO OFF
 
-SET APP_DIR=%ProgramData%\Monitory_software\
-SET SERVICENAME=MY_SERVICE
+SET applicationName: %1
+SET ServiceName: %2
+
+if "%1" == "" (
+    ECHO usage: %~nx0 applicationName ServiceName
+    exit /b 1
+)
+
+if "%2" == "" (
+    ECHO usage: %~nx0 applicationName ServiceName
+    exit /b 1
+)
+
+
+SET APP_DIR=%ProgramData%\%1\
+SET SERVICENAME=%2
 SET NSSM="%APP_DIR%\nssm\nssm.exe"
 
 ECHO INSTALLING SERVICE %SERVICENAME%

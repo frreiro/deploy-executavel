@@ -1,13 +1,11 @@
 const { exec } = require('child_process');
+const globals = require('../../config/globals')
 
-//TODO: externalizar nome dos diretórios
-const _appDir = '\\Monitory_software'
-const _fullPath = process.env.ProgramData + _appDir
-
+console.log(`${globals.__deployAbsolutePath()}`)
 function installService(){
     return new Promise((resolve, reject) => {
         try{
-            exec(`cd ${_fullPath} && cmd.exe /c service-install.bat`, { }, (e, stdout) => {
+            exec(`cd ${globals.__deployAbsolutePath()} && cmd.exe /c service-install.bat ${globals.__appName} ${globals.__serviceName}`, { }, (e, stdout) => {
                 if(e) console.log('Deu erro')
                 console.log(stdout)
             })
